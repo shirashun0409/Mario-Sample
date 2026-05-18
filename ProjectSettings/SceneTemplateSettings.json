@@ -2,7 +2,7 @@
     "templatePinStates": [
         {
             "templateId": "Basic 2D (Built-in)",
-            "isEnabled": true
+            "isEnabled": false
         },
         {
             "templateId": "Empty",
