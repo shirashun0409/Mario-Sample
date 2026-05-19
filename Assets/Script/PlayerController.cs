@@ -160,21 +160,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// アイテムとの衝突時の処理（トリガー）
-    /// </summary>
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Item"))
-        {
-            // アイテムを取得
-            if (GameManager.Instance != null)
-            {
-                GameManager.Instance.CollectItem();
-            }
-            Destroy(other.gameObject);
-        }
-    }
 
     /// <summary>
     /// 接地判定用のギズモを描画（デバッグ用）
