@@ -138,7 +138,27 @@ public class EnemyController : MonoBehaviour
             spriteRenderer.flipX = currentDirection < 0;
         }
     }
+    /// <summary>
+    /// プレイヤーに踏まれた時の処理
+    /// </summary>
+    public void OnStomped()
+    {
+        // 動きを止める
+        rb.linearVelocity = Vector2.zero;
 
+        // コライダーを無効化（もう当たらないように）
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        // 潰れるアニメーション（Y方向に縮める）
+        transform.localScale = new Vector3(
+            transform.localScale.x,
+            transform.localScale.y * 0.3f,
+            transform.localScale.z
+        );
+
+        // 少し待ってから消す
+        Destroy(gameObject, 0.3f);
+    }
     /// <summary>
     /// デバッグ用のギズモを描画
     /// </summary>
