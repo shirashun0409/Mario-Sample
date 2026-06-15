@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 684016837}
   - component: {fileID: 684016836}
   - component: {fileID: 684016835}
+  - component: {fileID: 684016838}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -454,6 +455,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &684016838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684016834}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 046cd474a44d8804896c8739f79c59bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageBuilder
+  blockPrefab: {fileID: 6948286720964929824, guid: 1e53ef80f36fa244e937cc1793d2578b, type: 3}
+  enemyPrefab: {fileID: 2805448946399149749, guid: 98f677e6dd5e6a14799434d64f2cd5c0, type: 3}
+  itemPrefab: {fileID: 6723827589847521887, guid: 15a13918811f70e48ae8c5c9c0a41add, type: 3}
+  blockSize: 1
+  stageOffset: {x: -3, y: -3}
+  movingPlatformPrefab: {fileID: 0}
 --- !u!1 &1053707017
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,6 +767,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0

@@ -23,13 +23,17 @@ public class StageBuilder : MonoBehaviour
     [SerializeField]
     private Vector2 stageOffset = new Vector2(-3f, -3f);  // ステージ開始位置のオフセット
 
+    [SerializeField]
+    private GameObject movingPlatformPrefab;  // 動く足場のPrefab
+
     // ステージデータ（0=空、1=ブロック、2=敵、3=アイテム）
     // 配列の下の行が下のY座標、左の列が左のX座標
     private int[,] stageData = new int[,]
     {
         // 横方向 →  (X座標: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)
 
-        // Y=0（一番下の地面）
+        // 4 = 動く足場
+ // Y=0（一番下の地面）
         { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
         // Y=1
         { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
@@ -84,7 +88,25 @@ public class StageBuilder : MonoBehaviour
                     case 3:
                         SpawnObject(itemPrefab, position, "Items");
                         break;
+                    case 4: // 動く足場
+                        if (movingPlatformPrefab != null)
+                        {
+                            GameObject platform = Instantiate(
+                            movingPlatformPrefab,
+                            position,
+                            Quaternion.identity
+);
+                            // MovingPlatformコンポーネントを追加
+                            // （Prefabに最初から付けてもOK）
+                            if (platform.GetComponent<MovingPlatform>() == null)
+                            {
+                                platform.AddComponent<MovingPlatform>();
+                            }
+                        }
+                        break;
+
                 }
+
             }
         }
     }
