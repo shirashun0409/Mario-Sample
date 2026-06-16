@@ -89,8 +89,21 @@ public class MovingPlatform : MonoBehaviour
             {
                 collision.transform.SetParent(transform);
             }
+        }
+    }
 
+    /// <summary>
+    /// プレイヤーが降りたら親子関係を解除する
+    /// </summary>
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.transform.SetParent(null);
         }
     }
 }
+
+
+
 
