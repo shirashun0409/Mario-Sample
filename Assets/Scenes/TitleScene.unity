@@ -467,9 +467,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046cd474a44d8804896c8739f79c59bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageBuilder
-  blockPrefab: {fileID: 6948286720964929824, guid: 1e53ef80f36fa244e937cc1793d2578b, type: 3}
-  enemyPrefab: {fileID: 2805448946399149749, guid: 98f677e6dd5e6a14799434d64f2cd5c0, type: 3}
-  itemPrefab: {fileID: 6723827589847521887, guid: 15a13918811f70e48ae8c5c9c0a41add, type: 3}
+  blockPrefab: {fileID: 0}
+  enemyPrefab: {fileID: 0}
+  itemPrefab: {fileID: 0}
   blockSize: 1
   stageOffset: {x: -3, y: -3}
   movingPlatformPrefab: {fileID: 0}
