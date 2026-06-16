@@ -1,4 +1,7 @@
+using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.iOS;
 
 /// <summary>
 /// 動く足場を制御するクラス
@@ -67,7 +70,27 @@ public class MovingPlatform : MonoBehaviour
             );
         }
     }
+
+    /// <summary>  
+    ///プレイヤーが乗ったら子プロジェクトにする
+    /// </suammary>
+    private void OnCollisionEnter2D(Collision2D collision)
+
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //プレイヤーが上に乗った時だけ親子にする
+            float playerBottom = collision.transform.position.y -
+                collision.collider.bounds.extents.y;
+            float platformTop = transform.position.y +
+                GetComponent<Collider2D>().bounds.extents.y;
+
+            if (playerBottom >= platformTop - 0.1f)
+            {
+                collision.transform.SetParent(transform);
+            }
+
+        }
+    }
 }
 
-/// <summary>  
-///プレイヤー
