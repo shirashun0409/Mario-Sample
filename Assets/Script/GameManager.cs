@@ -8,6 +8,24 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    [Header("スコア設定")]
+    [SerializeField]
+    private int scorePerItem = 100;      // アイテム1個あたりのスコア
+
+    [SerializeField]
+    private int scorePerStomp = 200;     // 敵踏みつけのスコア
+
+    [SerializeField]
+    private int timeBonus = 10;          // 残り時間1秒あたりのボーナス
+
+    [Header("タイマー設定")]
+    [SerializeField]
+    private float timeLimit = 60f;       // 制限時間（秒）
+
+    // スコアとタイマー
+    private int score = 0;
+    private float remainingTime;
+
     // シングルトンインスタンス
     public static GameManager Instance { get; private set; }
 
@@ -52,22 +70,25 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // タイトル、ゲームオーバー、ゲームクリア画面でスペースキー入力を処理
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        // タイマー処理（プレイ中のみ）
+        if (CurrentState == GameState.Playing)
         {
-            switch (CurrentState)
+            remainingTime -= Time.deltaTime;
+            if (remainingTime <= 0f)
             {
-                case GameState.Title:
-                    StartGame();
-                    break;
-                case GameState.GameOver:
-                case GameState.GameClear:
-                    ReturnToTitle();
-                    break;
+                remainingTime = 0f;
+                GameOver();  // 時間切れ！
+                return;
             }
         }
-    }
 
+        // スペースキー入力の処理（既存のコード）
+        if (Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            // ... 既存の処理 ...
+        }
+    }
     /// <summary>
     /// 現在のシーン名からゲーム状態を更新
     /// </summary>
@@ -98,6 +119,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         itemCount = 0;
+        score = 0;                         // スコアをリセット
+        remainingTime = timeLimit;         // タイマーをリセット
         CurrentState = GameState.Playing;
         SceneManager.LoadScene("GameScene");
     }
@@ -136,11 +159,15 @@ public class GameManager : MonoBehaviour
     public void CollectItem()
     {
         itemCount++;
-        Debug.Log("アイテム取得: " + itemCount + " / " + requiredItemCount);
+        score += scorePerItem;  // スコア加算
+        Debug.Log("スコア: " + score +
+                  " アイテム: " + itemCount + " / " + requiredItemCount);
 
-        // クリア条件を達成したらゲームクリア
         if (itemCount >= requiredItemCount)
         {
+            // クリアボーナス: 残り時間 × timeBonus
+            int bonus = Mathf.CeilToInt(remainingTime) * timeBonus;
+            score += bonus;
             GameClear();
         }
     }
@@ -160,4 +187,30 @@ public class GameManager : MonoBehaviour
     {
         return requiredItemCount;
     }
+
+    /// <summary>
+    /// スコアを加算する（敵を倒した時など）
+    /// </summary>
+    public void AddScore(int points)
+    {
+        score += points;
+    }
+
+    /// <summary>
+    /// 現在のスコアを取得
+    /// </summary>
+    public int GetScore()
+    {
+        return score;
+    }
+
+    /// <summary>
+    /// 残り時間を取得
+    /// </summary>
+    public float GetRemainingTime()
+    {
+        return remainingTime;
+    }
+
+
 }
