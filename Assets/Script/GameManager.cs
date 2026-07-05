@@ -66,8 +66,10 @@ public class GameManager : MonoBehaviour
     {
         // 現在のシーン名から状態を設定
         UpdateStateFromScene();
-    }
 
+        // ゲーム開始時にタイマーを初期化
+        remainingTime = timeLimit;
+    }
     void Update()
     {
         // タイマー処理（プレイ中のみ）
