@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour
                 rb.linearVelocity.x, jumpForce);
             currentJumpCount++;
         }
+
     }
 
     /// <summary>

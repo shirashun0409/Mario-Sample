@@ -113,13 +113,25 @@ public class GameManager : MonoBehaviour
                 CurrentState = GameState.GameClear;
                 break;
         }
+
+        // タイトルならタイトルBGMを再生 ← 追加！
+        if (sceneName == "TitleScene" &&
+            SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM("title");
+        }
     }
+
 
     /// <summary>
     /// ゲームを開始する
     /// </summary>
     public void StartGame()
     {
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayBGM("game");
+        }
         itemCount = 0;
         score = 0;                         // スコアをリセット
         remainingTime = timeLimit;         // タイマーをリセット
@@ -144,6 +156,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = GameState.GameOver;
         SceneManager.LoadScene("GameOverScene");
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlaySE("gameover");
+        }
     }
 
     /// <summary>
@@ -153,6 +170,11 @@ public class GameManager : MonoBehaviour
     {
         CurrentState = GameState.GameClear;
         SceneManager.LoadScene("GameClearScene");
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlaySE("clear");
+        }
     }
 
     /// <summary>
@@ -161,6 +183,11 @@ public class GameManager : MonoBehaviour
     public void CollectItem()
     {
         itemCount++;
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlaySE("item");
+        }
+
         score += scorePerItem;  // スコア加算
         Debug.Log("スコア: " + score +
                   " アイテム: " + itemCount + " / " + requiredItemCount);
