@@ -520,7 +520,7 @@ GameObject:
   - component: {fileID: 684016835}
   - component: {fileID: 684016838}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
