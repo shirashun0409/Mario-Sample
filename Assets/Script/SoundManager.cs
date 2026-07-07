@@ -93,9 +93,18 @@ public class SoundManager : MonoBehaviour
                 break;
         }
 
-        if (clip != null && bgmSource.clip != clip)
+        if (clip == null)
+        {
+            return;
+        }
+
+        if (bgmSource.clip != clip)
         {
             bgmSource.clip = clip;
+            bgmSource.Play();
+        }
+        else if (!bgmSource.isPlaying)
+        {
             bgmSource.Play();
         }
     }
